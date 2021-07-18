@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 #  flutter_icons: ^1.1.0
   list_tile_switch: ^1.0.0
+  ionicons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
