@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/provider/dark_theme_provider.dart';
 
 class UserInfo extends StatefulWidget {
   @override
@@ -28,6 +30,7 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -161,11 +164,11 @@ class _UserInfoState extends State<UserInfo> {
                       color: Colors.grey,
                     ),
                     ListTileSwitch(
-                      value: false,
+                      value: themeChange.darkTheme,
                       leading: Icon(Ionicons.moon),
                       onChanged: (value) {
                         setState(() {
-                          // themeChange.darkTheme = value;
+                          themeChange.darkTheme = value;
                         });
                       },
                       visualDensity: VisualDensity.comfortable,
@@ -213,7 +216,8 @@ class _UserInfoState extends State<UserInfo> {
                                           child: Text(
                                             'Ok',
                                             style: TextStyle(color: Colors.red),
-                                          ))
+                                          )
+                                      )
                                     ],
                                   );
                                 });
