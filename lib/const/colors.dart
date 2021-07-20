@@ -20,4 +20,5 @@ class ColorsConsts {
   static Color gradiendLEnd = Color(0xFFAB47BC); //purple 400
   static Color gradiendLStart = Color(0xFFAA00FF); //purpleaccent 700
   static Color starterColor = Color(0xFF8E24AA); //purple 600
-  static Color purple800 = Color(0xFF6A1B9A);}
+  static Color purple800 = Color(0xFF6A1B9A);
+}
