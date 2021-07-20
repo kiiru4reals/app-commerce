@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/ui/empty_cart.dart';
 
 class ShoppingCart extends StatelessWidget {
   const ShoppingCart({Key? key}) : super(key: key);
@@ -6,9 +7,8 @@ class ShoppingCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text ("Shopping Cart goes here"),
-      ),
+      body: EmptyCart(),
+
     );
   }
 }
