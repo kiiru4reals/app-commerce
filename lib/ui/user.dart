@@ -11,7 +11,7 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  bool _value = false;
+  // bool _value = false;
   late ScrollController _scrollController;
   var top = 0.0;
   @override
@@ -120,14 +120,14 @@ class _UserInfoState extends State<UserInfo> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Phone number', '4555', 0, context),
-                    userListTile('Shipping address', '', 0, context),
-                    userListTile('joined date', 'date', 0, context),
+                    userListTile('Email', 'Email goes here', 0, context),
+                    userListTile('Phone', 'number', 1, context),
+                    userListTile('Shipping', 'address', 2, context),
+                    userListTile('Order', 'history', 3, context),
+                    // userListTile('Email', 'Email sub', 0, context),
+                    // userListTile('Phone number', '4555', 0, context),
+                    // userListTile('Shipping address', '', 0, context),
+                    // userListTile('joined date', 'date', 0, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: userTitle('User settings'),
