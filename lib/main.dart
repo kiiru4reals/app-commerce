@@ -1,7 +1,6 @@
 import 'const/theme_data.dart';
 import 'provider/dark_theme_provider.dart';
 import 'ui/bottom_bar.dart';
-import 'ui/empty_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
