@@ -194,6 +194,7 @@ class _UserInfoState extends State<UserInfo> {
         transform:  Matrix4.identity()..scale(scale),
         alignment: Alignment.center,
         child:  FloatingActionButton(
+          backgroundColor: ColorsConsts.starterColor,
           heroTag: "btn1",
           onPressed: (){},
           child:  Icon(Icons.camera_alt_outlined),
