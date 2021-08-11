@@ -45,7 +45,7 @@ class PopularProducts extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(10),
                       color: Theme.of(context).backgroundColor,
-                      child: Text("\$ 123",
+                      child: Text("KES. 123",
                       style: TextStyle(
                         color: Theme.of(context).textSelectionColor,
                       ),
