@@ -9,7 +9,7 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/const/colors.dart';
 import 'package:shop/widget/categories.dart';
 import 'package:shop/widget/popular_products.dart';
-// import 'package:shop/widget/categories.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -129,14 +129,14 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext ctx, int index){
                 return CategoryWidget(index: index);
               },
-              itemCount: 22,
+              itemCount: 18,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text("Categories", style: TextStyle(
+                Text("Leading brands", style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 20,
                 ),),
