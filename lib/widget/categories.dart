@@ -81,7 +81,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     {
       'categoryName': 'Wellness',
       'categoryImagesPath': 'images/wellness.jpg',
-    },
+    }
   ];
 
   @override
