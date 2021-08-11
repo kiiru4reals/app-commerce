@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/const/colors.dart';
 import 'package:shop/widget/categories.dart';
+import 'package:shop/widget/popular_products.dart';
 // import 'package:shop/widget/categories.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -157,15 +158,48 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext ctx, int index){
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    color: Colors.blueGrey,
-                      child: Image.asset(CategoryImages[index],
-                      fit: BoxFit.fill,)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.blueGrey,
+                        child: Image.asset(CategoryImages[index],
+                        fit: BoxFit.fill,)),
+                  ),
                 );
               } ,
               itemCount: CategoryImages.length,
               autoplay: true,
               onTap: (index){},
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text("Popular products", style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20,
+                ),),
+                Spacer(),
+                TextButton(onPressed: (){},
+                  child: Text("View all >>", style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                    color: Colors.red,
+                  ),),)
+
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 285,
+            margin: EdgeInsets.symmetric(horizontal: 3),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext ctx, int index) {
+                return PopularProducts();
+              },
             ),
           )
         ],
