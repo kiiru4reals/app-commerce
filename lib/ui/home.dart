@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/const/colors.dart';
+import 'package:shop/routes/brands_navigation_rail.dart';
 import 'package:shop/widget/categories.dart';
 import 'package:shop/widget/popular_products.dart';
 
@@ -30,182 +31,189 @@ class _HomePageState extends State<HomePage> {
     ];
     List CategoryImages = [
 
-    'images/baby.jpg',
+      'images/baby.jpg',
       'images/breakfast_cereals.jpg',
-       'images/beverages.jpg',
-        'images/cooking_fat.jpg',
-        'images/cooking_oil.jpg',
-        'images/dairy.jpg',
-        'images/f and v.jpg',
-        'images/flours.jpg',
-        'images/kitchen_essentials.jpg',
-        'images/laundry.jpg',
-        'images/flours.jpg',
-        'images/noodles.jpg',
-        'images/personal_effects.jpg',
-        'images/rice_cereals.jpg',
-        'images/sauces_spices.jpg',
-        'images/snacks.jpg',
-        'images/spreads.jpg',
-        'images/sugar.jpg',
-        'images/sweets.png',
-        'images/wellness.jpg'
+      'images/beverages.jpg',
+      'images/cooking_fat.jpg',
+      'images/cooking_oil.jpg',
+      'images/dairy.jpg',
+      'images/f and v.jpg',
+      'images/flours.jpg',
+      'images/kitchen_essentials.jpg',
+      'images/laundry.jpg',
+      'images/flours.jpg',
+      'images/noodles.jpg',
+      'images/personal_effects.jpg',
+      'images/rice_cereals.jpg',
+      'images/sauces_spices.jpg',
+      'images/snacks.jpg',
+      'images/spreads.jpg',
+      'images/sugar.jpg',
+      'images/sweets.png',
+      'images/wellness.jpg'
     ];
     return Scaffold(
       body: Center(
         child: BackdropScaffold(
           frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
           headerHeight: MediaQuery.of(context).size.height*.25,
-        appBar: BackdropAppBar(
-          leading: BackdropToggleButton(
-            icon: AnimatedIcons.home_menu,
+          appBar: BackdropAppBar(
+            leading: BackdropToggleButton(
+              icon: AnimatedIcons.home_menu,
+            ),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [ColorsConsts.starterColor, ColorsConsts.endColor])
+              ),
+            ),
+            title: Text("Home"),
+            actions: <Widget>[
+              IconButton(
+                onPressed: (){},
+                icon: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 13,
+                    backgroundImage: NetworkImage("https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg"),),),
+                iconSize: 15,
+                padding: const EdgeInsets.all(10),)
+            ],
           ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [ColorsConsts.starterColor, ColorsConsts.endColor])
+          backLayer: Center(
+            child: Text("Back Layer"),
+          ),
+          frontLayer: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: CarouselSlider(
+                    items: imgList
+                        .map((item) => Container(
+                      child: Center(
+                        child: Image.network(
+                          item,
+                          fit: BoxFit.cover,
+                          width: 1000,
+                        ),
+                      ),
+                    ))
+                        .toList(),
+                    options: CarouselOptions(
+                      height: MediaQuery.of(context).size.height*.3,
+                      aspectRatio: 16/9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Our Categories", style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                  ),),
+
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 180,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext ctx, int index){
+                      return CategoryWidget(index: index);
+                    },
+                    itemCount: 18,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text("Leading brands", style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                      ),),
+                      Spacer(),
+                      TextButton(onPressed: (){
+                        Navigator.of(context).pushNamed(
+                          BrandNavigationRailScreen.routeName,
+                          arguments: {
+                            7,
+                          },
+                        );
+                      },
+                        child: Text("View all >>", style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),),)
+
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 210,
+                  width: MediaQuery.of(context).size.width*.95,
+                  child: Swiper(
+                    itemBuilder: (BuildContext ctx, int index){
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              color: Colors.blueGrey,
+                              child: Image.asset(CategoryImages[index],
+                                fit: BoxFit.fill,)),
+                        ),
+                      );
+                    } ,
+                    itemCount: CategoryImages.length,
+                    autoplay: true,
+                    onTap: (index){},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text("Popular products", style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                      ),),
+                      Spacer(),
+                      TextButton(onPressed: (){},
+                        child: Text("View all >>", style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),),)
+
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 285,
+                  margin: EdgeInsets.symmetric(horizontal: 3),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      return PopularProducts();
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-        title: Text("Home"),
-    actions: <Widget>[
-      IconButton(
-          onPressed: (){},
-          icon: CircleAvatar(
-            radius: 15,
-          backgroundColor: Colors.white,
-          child: CircleAvatar(
-          radius: 13,
-          backgroundImage: NetworkImage("https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg"),),),
-      iconSize: 15,
-      padding: const EdgeInsets.all(10),)
-    ],
-    ),
-    backLayer: Center(
-    child: Text("Back Layer"),
-    ),
-    frontLayer: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            child: CarouselSlider(
-                       items: imgList
-                    .map((item) => Container(
-                  child: Center(
-                    child: Image.network(
-                      item,
-                      fit: BoxFit.cover,
-                      width: 1000,
-                    ),
-                  ),
-                ))
-                    .toList(),
-                options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height*.3,
-                  aspectRatio: 16/9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,),),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Our Categories", style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),),
-
-          ),
-          Container(
-            width: double.infinity,
-            height: 180,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext ctx, int index){
-                return CategoryWidget(index: index);
-              },
-              itemCount: 18,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text("Leading brands", style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),),
-                Spacer(),
-                TextButton(onPressed: (){},
-                  child: Text("View all >>", style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                    color: Colors.red,
-                  ),),)
-
-              ],
-            ),
-          ),
-          Container(
-          height: 210,
-            width: MediaQuery.of(context).size.width*.95,
-            child: Swiper(
-              itemBuilder: (BuildContext ctx, int index){
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.blueGrey,
-                        child: Image.asset(CategoryImages[index],
-                        fit: BoxFit.fill,)),
-                  ),
-                );
-              } ,
-              itemCount: CategoryImages.length,
-              autoplay: true,
-              onTap: (index){},
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text("Popular products", style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),),
-                Spacer(),
-                TextButton(onPressed: (){},
-                  child: Text("View all >>", style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                    color: Colors.red,
-                  ),),)
-
-              ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: 285,
-            margin: EdgeInsets.symmetric(horizontal: 3),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext ctx, int index) {
-                return PopularProducts();
-              },
-            ),
-          )
-        ],
-      ),
-    ),
-    ),
       ),
     );
   }
