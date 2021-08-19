@@ -1,6 +1,7 @@
 import 'package:shop/routes/brands_navigation_rail.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
+import 'package:shop/ui/wishlist.dart';
 
 import 'const/theme_data.dart';
 import 'provider/dark_theme_provider.dart';
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
                   BrandNavigationRailScreen(),
               ShoppingCart.routeName: (ctx) => ShoppingCart(),
               Feed.routeName: (ctx) => Feed(),
+              WishList.routeName: (ctx) => WishList(),
             },
           );
         }));
