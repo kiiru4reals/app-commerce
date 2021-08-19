@@ -4,6 +4,8 @@ import 'package:shop/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/ui/cart.dart';
+import 'package:shop/ui/wishlist.dart';
 
 class UserInfo extends StatefulWidget {
   @override
@@ -113,6 +115,39 @@ class _UserInfoState extends State<UserInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: userTitle('My Bag')),
+                    Divider(
+                      thickness: 1,
+                      color: Colors.grey,
+                    ),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            splashColor: Theme.of(context).splashColor,
+            child: ListTile(
+              onTap: () => Navigator.of(context).pushNamed(WishList.routeName),
+              title: Text('Wishlist'),
+              trailing: Icon(Icons.chevron_right),
+              leading: Icon(Icons.favorite_border_outlined),
+            ),
+          ),
+        ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          onTap: () => Navigator.of(context).pushNamed(ShoppingCart.routeName),
+                          title: Text('Shopping cart'),
+                          trailing: Icon(Icons.chevron_right),
+                          leading: Icon(Icons.shopping_cart),
+                        ),
+                      ),
+                    ),
+
+
                     Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: userTitle('User Information')),
