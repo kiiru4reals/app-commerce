@@ -8,6 +8,7 @@ class CategoryWidget extends StatefulWidget {
   _CategoryWidgetState createState() => _CategoryWidgetState();
 }
 
+
 class _CategoryWidgetState extends State<CategoryWidget> {
   List<Map<String, Object>> categories = [
     {
