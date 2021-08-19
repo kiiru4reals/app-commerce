@@ -1,5 +1,5 @@
 import 'package:shop/const/colors.dart';
-import 'package:shop/const/my_icons.dart';
+// import 'package:shop/const/my_icons.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
 import 'package:flutter/material.dart';
@@ -146,9 +146,9 @@ class BackLayerMenu extends StatelessWidget {
     );
   }
 
-  Widget content(BuildContext ctx, Function fct , String text, int index) {
+  Widget content(BuildContext ctx,  Function fct , String text, int index) {
     return InkWell(
-      onTap: fct,
+      // onTap: fct,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
