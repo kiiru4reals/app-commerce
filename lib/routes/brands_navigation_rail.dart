@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'brands_rail_widget.dart';
 
 class BrandNavigationRailScreen extends StatefulWidget {
-  BrandNavigationRailScreen({required Key key}) : super(key: key);
+  BrandNavigationRailScreen({Key? key}) : super(key: key);
 
   static const routeName = '/brands_navigation_rail';
   @override
@@ -25,37 +25,37 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
     print(routeArgs.toString());
     if (_selectedIndex == 0) {
       setState(() {
-        brand = 'Addidas';
+        brand = 'Brand 1';
       });
     }
     if (_selectedIndex == 1) {
       setState(() {
-        brand = 'Apple';
+        brand = 'Brand 2';
       });
     }
     if (_selectedIndex == 2) {
       setState(() {
-        brand = 'Dell';
+        brand = 'Brand 3';
       });
     }
     if (_selectedIndex == 3) {
       setState(() {
-        brand = 'H&M';
+        brand = 'Brand 4';
       });
     }
     if (_selectedIndex == 4) {
       setState(() {
-        brand = 'Nike';
+        brand = 'Brand 5';
       });
     }
     if (_selectedIndex == 5) {
       setState(() {
-        brand = 'Samsung';
+        brand = 'Brand 6';
       });
     }
     if (_selectedIndex == 6) {
       setState(() {
-        brand = 'Huawei';
+        brand = 'Brand 7';
       });
     }
     if (_selectedIndex == 7) {
@@ -86,37 +86,37 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                           _selectedIndex = index;
                           if (_selectedIndex == 0) {
                             setState(() {
-                              brand = 'Addidas';
+                              brand = 'Brand 1';
                             });
                           }
                           if (_selectedIndex == 1) {
                             setState(() {
-                              brand = 'Apple';
+                              brand = 'Brand 2';
                             });
                           }
                           if (_selectedIndex == 2) {
                             setState(() {
-                              brand = 'Dell';
+                              brand = 'Brand 3';
                             });
                           }
                           if (_selectedIndex == 3) {
                             setState(() {
-                              brand = 'H&M';
+                              brand = 'Brand 4';
                             });
                           }
                           if (_selectedIndex == 4) {
                             setState(() {
-                              brand = 'Nike';
+                              brand = 'Brand 5';
                             });
                           }
                           if (_selectedIndex == 5) {
                             setState(() {
-                              brand = 'Samsung';
+                              brand = 'Brand 6';
                             });
                           }
                           if (_selectedIndex == 6) {
                             setState(() {
-                              brand = 'Huawei';
+                              brand = 'Brand 7';
                             });
                           }
                           if (_selectedIndex == 7) {
@@ -157,13 +157,13 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                         letterSpacing: 0.8,
                       ),
                       destinations: [
-                        buildRotatedTextRailDestination('Addidas', padding),
-                        buildRotatedTextRailDestination("Apple", padding),
-                        buildRotatedTextRailDestination("Dell", padding),
-                        buildRotatedTextRailDestination("H&M", padding),
-                        buildRotatedTextRailDestination("Nike", padding),
-                        buildRotatedTextRailDestination("Samsung", padding),
-                        buildRotatedTextRailDestination("Huawei", padding),
+                        buildRotatedTextRailDestination('Brand 1', padding),
+                        buildRotatedTextRailDestination("Brand 2", padding),
+                        buildRotatedTextRailDestination("Brand 3", padding),
+                        buildRotatedTextRailDestination("Brand 4", padding),
+                        buildRotatedTextRailDestination("Brand 5", padding),
+                        buildRotatedTextRailDestination("Brand 6", padding),
+                        buildRotatedTextRailDestination("Brand 7", padding),
                         buildRotatedTextRailDestination("All", padding),
                       ],
                     ),
