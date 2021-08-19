@@ -4,6 +4,7 @@ import 'package:shop/widget/feeds_products.dart';
 
 class Feed extends StatelessWidget {
   const Feed({Key? key}) : super(key: key);
+  static const routeName = '/Feed';
 
   @override
   Widget build(BuildContext context) {

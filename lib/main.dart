@@ -1,3 +1,7 @@
+import 'package:shop/routes/brands_navigation_rail.dart';
+import 'package:shop/ui/cart.dart';
+import 'package:shop/ui/feeds.dart';
+
 import 'const/theme_data.dart';
 import 'provider/dark_theme_provider.dart';
 import 'ui/bottom_bar.dart';
@@ -41,6 +45,14 @@ class _MyAppState extends State<MyApp> {
             title: 'Flutter Demo',
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             home: BottomBarScreen(),
+            //initialRoute: '/',
+            routes: {
+              //   '/': (ctx) => LandingPage(),
+              BrandNavigationRailScreen.routeName: (ctx) =>
+                  BrandNavigationRailScreen(),
+              ShoppingCart.routeName: (ctx) => ShoppingCart(),
+              Feed.routeName: (ctx) => Feed(),
+            },
           );
         }));
   }

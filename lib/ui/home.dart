@@ -1,6 +1,5 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:backdrop/app_bar.dart';
-import 'package:backdrop/sub_header.dart';
 import 'package:backdrop/button.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/const/colors.dart';
 import 'package:shop/routes/brands_navigation_rail.dart';
+import 'package:shop/routes/brands_rail_widget.dart';
+import 'package:shop/widget/backlayer.dart';
 import 'package:shop/widget/categories.dart';
 import 'package:shop/widget/popular_products.dart';
 
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
       'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
     ];
-    List CategoryImages = [
+    List brandImages = [
 
       'images/baby.jpg',
       'images/breakfast_cereals.jpg',
@@ -80,9 +81,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(10),)
             ],
           ),
-          backLayer: Center(
-            child: Text("Back Layer"),
-          ),
+          backLayer: BackLayerMenu(),
           frontLayer: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.of(context).pushNamed(
                           BrandNavigationRailScreen.routeName,
                           arguments: {
-                            7,
+                            18,
                           },
                         );
                       },
@@ -170,14 +169,23 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                               color: Colors.blueGrey,
-                              child: Image.asset(CategoryImages[index],
-                                fit: BoxFit.fill,)),
+                              child: Image.asset(
+                                  brandImages[index],
+                                  fit: BoxFit.fill)
+                          ),
                         ),
                       );
                     } ,
-                    itemCount: CategoryImages.length,
+                    itemCount: brandImages.length,
                     autoplay: true,
-                    onTap: (index){},
+                    onTap: (index){
+                      Navigator.of(context).pushNamed(
+                        BrandNavigationRailScreen.routeName,
+                        arguments: {
+                          index,
+                        },
+                      );
+                    },
                   ),
                 ),
                 Padding(

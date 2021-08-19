@@ -6,6 +6,7 @@ import 'package:shop/widget/empty_cart.dart';
 
 class ShoppingCart extends StatelessWidget {
   const ShoppingCart({Key? key}) : super(key: key);
+  static const routeName = '/ShoppingCart';
 
   @override
   Widget build(BuildContext context) {
