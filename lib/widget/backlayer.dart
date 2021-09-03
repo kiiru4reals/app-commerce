@@ -112,7 +112,7 @@ class BackLayerMenu extends StatelessWidget {
                 ),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feed.routeName);
+                  navigateTo(context, Feeds.routeName);
                 }, 'Feeds', 0),
                 const SizedBox(height: 10.0),
                 content(context, () {
@@ -120,11 +120,11 @@ class BackLayerMenu extends StatelessWidget {
                 }, 'Cart', 1),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feed.routeName);
+                  navigateTo(context, Feeds.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feed.routeName);
+                  navigateTo(context, Feeds.routeName);
                 }, 'Upload a new product', 3),
               ],
             ),

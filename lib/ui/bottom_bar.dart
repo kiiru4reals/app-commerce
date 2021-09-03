@@ -21,7 +21,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     _pages = [
       HomePage(),
-      Feed(),
+      Feeds(),
       SearchBar(),
       ShoppingCart(),
       UserInfo(),
