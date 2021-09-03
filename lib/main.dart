@@ -1,4 +1,6 @@
 import 'package:shop/routes/brands_navigation_rail.dart';
+import 'package:shop/routes/categories.dart';
+import 'package:shop/routes/product_details.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
 import 'package:shop/ui/wishlist.dart';
@@ -52,8 +54,10 @@ class _MyAppState extends State<MyApp> {
               BrandNavigationRailScreen.routeName: (ctx) =>
                   BrandNavigationRailScreen(),
               ShoppingCart.routeName: (ctx) => ShoppingCart(),
-              Feed.routeName: (ctx) => Feed(),
+              Feeds.routeName: (ctx) => Feeds(),
               WishList.routeName: (ctx) => WishList(),
+              ProductDetails.routeName: (ctx) => ProductDetails(),
+              CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
             },
           );
         }));
