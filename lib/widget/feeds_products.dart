@@ -1,21 +1,23 @@
-import 'package:badges/badges.dart';
-import 'package:flutter/material.dart';
 import 'package:shop/routes/product_details.dart';
+import 'package:shop/models/product.dart';
+import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 
-class FeedsProduct extends StatefulWidget {
-  const FeedsProduct({Key? key}) : super(key: key);
-
+class FeedProducts extends StatefulWidget {
   @override
-  _FeedsProductState createState() => _FeedsProductState();
+  _FeedProductsState createState() => _FeedProductsState();
 }
 
-class _FeedsProductState extends State<FeedsProduct> {
+class _FeedProductsState extends State<FeedProducts> {
   @override
   Widget build(BuildContext context) {
+    final productsAttributes = Provider.of<Product>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ProductDetails.routeName),
+        onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+            arguments: productsAttributes.id),
         child: Container(
           width: 250,
           height: 290,
@@ -24,32 +26,40 @@ class _FeedsProductState extends State<FeedsProduct> {
               color: Theme.of(context).backgroundColor),
           child: Column(
             children: [
-              Stack(
+              Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(2),
-                    child: Container(
-                      width: double.infinity,
-                      constraints: BoxConstraints(
-                          minHeight: 100,
-                          maxHeight: MediaQuery.of(context).size.height * .3),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1614026480209-cd9934144671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
-                        fit: BoxFit.fitWidth,
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(2),
+                        child: Container(
+                          width: double.infinity,
+                          constraints: BoxConstraints(
+                              minHeight: 100,
+                              maxHeight:
+                              MediaQuery.of(context).size.height * 0.3),
+                          child: Image.network(
+                            productsAttributes.imageUrl,
+                            //   fit: BoxFit.fitWidth,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    // bottom: 0,
-                    child: Badge(
-                      toAnimate: true,
-                      shape: BadgeShape.square,
-                      badgeColor: Colors.pink,
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(8)),
-                      badgeContent:
-                          Text('Fresh', style: TextStyle(color: Colors.white)),
-                    ),
+                      Positioned(
+                        // bottom: 0,
+                        // right: 5,
+                        // top: 5,
+                        child: Badge(
+                          alignment: Alignment.center,
+                          toAnimate: true,
+                          shape: BadgeShape.square,
+                          badgeColor: Colors.pink,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(8)),
+                          badgeContent: Text('New',
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -63,9 +73,9 @@ class _FeedsProductState extends State<FeedsProduct> {
                       height: 4,
                     ),
                     Text(
-                      "BMW M4",
+                      productsAttributes.description,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -74,7 +84,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        "KES. 123",
+                        '\$ ${productsAttributes.price}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
@@ -87,7 +97,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Quantity: 12",
+                          '${productsAttributes.quantity}',
                           style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
@@ -96,16 +106,15 @@ class _FeedsProductState extends State<FeedsProduct> {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(18),
-                            child: Icon(
-                              Icons.more_horiz,
-                              color: Colors.grey,
-                            ),
-                          ),
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(18.0),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: Colors.grey,
+                              )),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               )
