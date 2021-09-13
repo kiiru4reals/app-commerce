@@ -649,8 +649,8 @@ class Products with ChangeNotifier {
   List<Product>? findByCategory(String categoryName) {
     List _categoryList = _products
         .where((element) => element.productCategoryName
-            .toLowerCase()
-            .contains(categoryName.toLowerCase()))
+        .toLowerCase()
+        .contains(categoryName.toLowerCase()))
         .toList();
     return _categoryList;
   }
@@ -658,7 +658,7 @@ class Products with ChangeNotifier {
   List<Product>? findByBrand(String brandName) {
     List _categoryList = _products
         .where((element) =>
-            element.brand.toLowerCase().contains(brandName.toLowerCase()))
+        element.brand.toLowerCase().contains(brandName.toLowerCase()))
         .toList();
     return _categoryList;
   }
