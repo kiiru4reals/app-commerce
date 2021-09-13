@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesFeedsScreen extends StatelessWidget {
-
   static const routeName = '/CategoriesFeedsScreen';
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
         mainAxisSpacing: 8,
         children: List.generate(productsList!.length, (index) {
           return ChangeNotifierProvider.value(
-            value: productsList[index],
+            value: productsList![index],
             child: FeedProducts(
             ),
           );
