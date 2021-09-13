@@ -1,15 +1,15 @@
-import 'package:shop/routes/brands_navigation_rail.dart';
-import 'package:shop/routes/categories.dart';
+import 'package:shop/const/theme_data.dart';
 import 'package:shop/routes/product_details.dart';
-import 'package:shop/ui/cart.dart';
-import 'package:shop/ui/feeds.dart';
+import 'package:shop/provider/dark_theme_provider.dart';
+import 'package:shop/provider/products.dart';
+import 'package:shop/ui/bottom_bar.dart';
 import 'package:shop/ui/wishlist.dart';
-
-import 'const/theme_data.dart';
-import 'provider/dark_theme_provider.dart';
-import 'ui/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/routes/brands_navigation_rail.dart';
+import 'package:shop/routes/categories_feeds.dart';
+import 'package:shop/ui/cart.dart';
+import 'package:shop/ui/feeds.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,7 +40,10 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider(create: (_) {
             return themeChangeProvider;
-          })
+          }),
+          ChangeNotifierProvider(
+            create: (_) => Products(),
+          )
         ],
         child:
         Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
