@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:shop/const/colors.dart';
 import 'package:shop/const/my_icons.dart';
+import 'package:shop/provider/cart_provider.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
 import 'package:shop/provider/products.dart';
 import 'package:shop/ui/cart.dart';
@@ -24,6 +25,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     final productsData = Provider.of<Products>(context);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final cartProvider= Provider.of<CartProvider>(context);
     print('productId $productId');
     final prodAttr =productsData.findById(productId);
     final productsList = productsData.products;
@@ -111,7 +113,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               height: 8,
                             ),
                             Text(
-                              'US \$ ${prodAttr.price}',
+                              'KES. ${prodAttr.price}',
                               style: TextStyle(
                                   color: themeState.darkTheme
                                       ? Theme.of(context).disabledColor
@@ -226,7 +228,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Container(
                   margin: EdgeInsets.only(bottom: 30),
                   width: double.infinity,
-                  height: 340,
+                  height: 370,
                   child: ListView.builder(
                     itemCount: 7,
                     scrollDirection: Axis.horizontal,
@@ -284,9 +286,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(side: BorderSide.none),
                       color: Colors.redAccent.shade400,
-                      onPressed: () {},
+                      onPressed: cartProvider.getCartItems.containsKey(productId)? (){}: () {
+                        cartProvider.addProductToCart(productId, prodAttr.price, prodAttr.title, prodAttr.imageUrl);
+                      },
                       child: Text(
-                        'Add to Cart'.toUpperCase(),
+                        cartProvider.getCartItems.containsKey(productId)? 'In cart' : 'Add to Cart'.toUpperCase(),
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
