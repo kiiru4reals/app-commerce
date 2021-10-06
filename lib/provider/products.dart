@@ -646,13 +646,13 @@ class Products with ChangeNotifier {
     return _products.firstWhere((element) => element.id == productId);
   }
 
-  List<Product>? findByCategory(String categoryName) {
+  /*List<Product>? findByCategory(String categoryName) {
     List _categoryList = _products.where((element) => element.productCategoryName
         .toLowerCase()
         .contains(categoryName.toLowerCase()))
         .toList();
     return _categoryList;
-  }
+  }*/
 
   /*List<Product>? findByBrand(String brandName) {
     List _categoryList = _products
