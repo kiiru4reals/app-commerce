@@ -11,6 +11,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
     final productsProvider = Provider.of<Products>(context, listen: false);
     final categoryName = ModalRoute.of(context)!.settings.arguments as String;
     print(categoryName);
+    List<Product>? productsList= productsProvider.findByCategory(categoryName);
     // final productsList= productsProvider.findByCategory(categoryName);
     return Scaffold(
       body: GridView.count(
