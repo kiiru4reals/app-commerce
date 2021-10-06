@@ -45,8 +45,8 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (_) =>
             Products(),
           ),
-          ChangeNotifierProvider(create: (_) =>
-              CartProvider(),
+          ChangeNotifierProvider(
+            create: (_) => CartProvider(),
           ),
         ],
         child:
