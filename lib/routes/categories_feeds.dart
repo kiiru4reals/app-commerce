@@ -11,20 +11,20 @@ class CategoriesFeedsScreen extends StatelessWidget {
     final productsProvider = Provider.of<Products>(context, listen: false);
     final categoryName = ModalRoute.of(context)!.settings.arguments as String;
     print(categoryName);
-    final productsList= productsProvider.findByCategory(categoryName);
+    // final productsList= productsProvider.findByCategory(categoryName);
     return Scaffold(
       body: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: 240 / 420,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
-        children: List.generate(productsList!.length, (index) {
+/*        children: List.generate(productsList!.length, (index) {
           return ChangeNotifierProvider.value(
             value: productsList![index],
             child: FeedProducts(
             ),
           );
-        }),
+        }),*/
       ),
 //         StaggeredGridView.countBuilder(
 //           padding: ,
