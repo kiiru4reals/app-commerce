@@ -188,36 +188,36 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     children: [
-                //       Text("Popular products", style: TextStyle(
-                //         fontWeight: FontWeight.w800,
-                //         fontSize: 20,
-                //       ),),
-                //       Spacer(),
-                //       TextButton(onPressed: (){},
-                //         child: Text("View all >>", style: TextStyle(
-                //           fontWeight: FontWeight.w800,
-                //           fontSize: 15,
-                //           color: Colors.red,
-                //         ),),)
-                //
-                //     ],
-                //   ),
-                // ),
-                // Container(
-                //   width: double.infinity,
-                //   height: 285,
-                //   margin: EdgeInsets.symmetric(horizontal: 3),
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemBuilder: (BuildContext ctx, int index) {
-                //       return PopularProducts();
-                //     },
-                //   ),
-                // )
+                /*Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text("Popular products", style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                      ),),
+                      Spacer(),
+                      TextButton(onPressed: (){},
+                        child: Text("View all >>", style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),),)
+
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 285,
+                  margin: EdgeInsets.symmetric(horizontal: 3),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      return PopularProducts();
+                    },
+                  ),
+                )*/
               ],
             ),
           ),
