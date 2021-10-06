@@ -13,7 +13,7 @@ class Products with ChangeNotifier {
         imageUrl:
             'https://images-na.ssl-images-amazon.com/images/I/81%2Bh9mpyQmL._AC_SL1500_.jpg',
         brand: 'Samsung',
-        productCategoryName: 'Phones',
+        productCategoryName: 'Baby Products',
         quantity: 65,
         isPopular: false,
         isFavorite: false),
@@ -646,16 +646,15 @@ class Products with ChangeNotifier {
     return _products.firstWhere((element) => element.id == productId);
   }
 
-/*  List<Product>? findByCategory(String categoryName) {
-    List _categoryList = _products
-        .where((element) => element.productCategoryName
+  List<Product>? findByCategory(String categoryName) {
+    List _categoryList = _products.where((element) => element.productCategoryName
         .toLowerCase()
         .contains(categoryName.toLowerCase()))
         .toList();
     return _categoryList;
   }
 
-  List<Product>? findByBrand(String brandName) {
+  /*List<Product>? findByBrand(String brandName) {
     List _categoryList = _products
         .where((element) =>
         element.brand.toLowerCase().contains(brandName.toLowerCase()))
