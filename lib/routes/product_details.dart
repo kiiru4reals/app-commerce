@@ -3,6 +3,7 @@ import 'package:shop/const/colors.dart';
 import 'package:shop/const/my_icons.dart';
 import 'package:shop/provider/cart_provider.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
+import 'package:shop/provider/favs_provider.dart';
 import 'package:shop/provider/products.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/wishlist.dart';
@@ -26,6 +27,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final productsData = Provider.of<Products>(context);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final cartProvider= Provider.of<CartProvider>(context);
+    final favsProvider = Provider.of<FavsProvider>(context);
     print('productId $productId');
     final prodAttr =productsData.findById(productId);
     final productsList = productsData.products;
@@ -335,11 +337,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                     height: 50,
                     child: InkWell(
                       splashColor: ColorsConsts.favColor,
-                      onTap: () {},
+                      onTap: () {
+                        favsProvider.addAndRemoveFromFav(productId, prodAttr.price, prodAttr.title, prodAttr.imageUrl);
+                      },
                       child: Center(
                         child: Icon(
-                          Icons.favorite_border_outlined,
-                          color: ColorsConsts.white,
+                          favsProvider.getFavsItems.containsKey(productId) ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                         color: favsProvider.getFavsItems.containsKey(productId) ? Colors.red : ColorsConsts.white,
                         ),
                       ),
                     ),
