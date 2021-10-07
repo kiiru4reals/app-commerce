@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/const/colors.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
+import 'package:shop/ui/feeds.dart';
 
 class EmptyCart extends StatelessWidget {
   @override
@@ -43,7 +44,7 @@ class EmptyCart extends StatelessWidget {
 
           width: MediaQuery.of(context).size.width*.9,
           height: MediaQuery.of(context).size.height*.06,
-          child: ElevatedButton(onPressed: (){},
+          child: ElevatedButton(onPressed: () => Navigator.of(context).pushNamed(Feeds.routeName),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),
                     side: BorderSide(color: Colors.cyanAccent.shade400)
