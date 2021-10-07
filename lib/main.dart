@@ -1,5 +1,6 @@
 import 'package:shop/const/theme_data.dart';
 import 'package:shop/provider/cart_provider.dart';
+import 'package:shop/provider/favs_provider.dart';
 import 'package:shop/routes/product_details.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
 import 'package:shop/provider/products.dart';
@@ -47,6 +48,9 @@ class _MyAppState extends State<MyApp> {
           ),
           ChangeNotifierProvider(
             create: (_) => CartProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => FavsProvider(),
           ),
         ],
         child:
