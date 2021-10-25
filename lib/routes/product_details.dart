@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:shop/const/colors.dart';
 import 'package:shop/const/my_icons.dart';
 import 'package:shop/provider/cart_provider.dart';
@@ -10,6 +9,7 @@ import 'package:shop/ui/wishlist.dart';
 import 'package:shop/widget/feeds_products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
@@ -257,23 +257,54 @@ class _ProductDetailsState extends State<ProductDetails> {
                   TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.favorite_border_outlined,
-                      color: ColorsConsts.favColor,
+                  Consumer<FavsProvider>(
+                    builder: (_, favs, ch)=> Badge(
+                      badgeColor: ColorsConsts.cartBadgeColor,
+                      animationType: BadgeAnimationType.slide,
+                      toAnimate: true,
+                      position: BadgePosition.topEnd(top: 5, end: 7),
+                      badgeContent: Text(favsProvider.getFavsItems.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white
+                      ),),
+
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.favorite_border_outlined,
+                          color: ColorsConsts.favColor,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(WishList.routeName);
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(WishList.routeName);
-                    },
                   ),
-                  IconButton(
-                    icon: Icon(
-                      MyAppIcons.cart,
-                      color: ColorsConsts.cartColor,
+                  Consumer<CartProvider>(
+                    builder: (_, cart, ch)=> Badge(
+                      badgeColor: ColorsConsts.cartBadgeColor,
+                      animationType: BadgeAnimationType.slide,
+                      toAnimate: true,
+                      position: BadgePosition.topEnd(top: 5, end: 7),
+                      badgeContent: Text(cartProvider.getCartItems.length.toString(),
+                        style: TextStyle(
+                            color: Colors.white
+                        ),),
+
+                      child: IconButton(
+                        icon:                   IconButton(
+                          icon: Icon(
+                            MyAppIcons.cart,
+                            color: ColorsConsts.cartColor,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(ShoppingCart.routeName);
+                          },
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(WishList.routeName);
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(ShoppingCart.routeName);
-                    },
                   ),
                 ]),
           ),
