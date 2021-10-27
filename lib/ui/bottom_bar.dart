@@ -22,7 +22,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     _pages = [
       HomePage(),
       Feeds(),
-      SearchBar(),
+      Search(),
       ShoppingCart(),
       UserInfo(),
     ];
