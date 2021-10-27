@@ -646,19 +646,30 @@ class Products with ChangeNotifier {
     return _products.firstWhere((element) => element.id == productId);
   }
 
-  /*List<Product>? findByCategory(String categoryName) {
+
+/*
+  List findByCategory(String categoryName) {
     List _categoryList = _products.where((element) => element.productCategoryName
         .toLowerCase()
         .contains(categoryName.toLowerCase()))
         .toList();
     return _categoryList;
-  }*/
+  }
 
-  /*List<Product>? findByBrand(String brandName) {
+  List findByBrand(String brandName) {
     List _categoryList = _products
         .where((element) =>
         element.brand.toLowerCase().contains(brandName.toLowerCase()))
         .toList();
     return _categoryList;
-  }*/
+  }
+*/
+
+  List searchQuery(String searchText) {
+    List _searchList = _products
+        .where((element) =>
+        element.title.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
+    return _searchList;
+  }
 }
