@@ -5,6 +5,7 @@ import 'package:shop/routes/product_details.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
 import 'package:shop/provider/products.dart';
 import 'package:shop/ui/bottom_bar.dart';
+import 'package:shop/ui/landing_page.dart';
 import 'package:shop/ui/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            home: BottomBarScreen(),
+            home: LandingPage(),
             //initialRoute: '/',
             routes: {
               //   '/': (ctx) => LandingPage(),
