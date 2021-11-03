@@ -1,3 +1,4 @@
+import 'package:shop/auth/login.dart';
 import 'package:shop/const/theme_data.dart';
 import 'package:shop/provider/cart_provider.dart';
 import 'package:shop/provider/favs_provider.dart';
@@ -70,6 +71,7 @@ class _MyAppState extends State<MyApp> {
               WishList.routeName: (ctx) => WishList(),
               ProductDetails.routeName: (ctx) => ProductDetails(),
               CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
+              LoginScreen.routeName: (ctx) => LoginScreen(),
             },
           );
         }));
