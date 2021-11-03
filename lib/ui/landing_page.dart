@@ -1,3 +1,4 @@
+import 'package:shop/auth/login.dart';
 import 'package:shop/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -106,7 +107,9 @@ class _LandingPageState extends State<LandingPage>
                                 side: BorderSide(color: ColorsConsts.backgroundColor),
                               ),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, LoginScreen.routeName);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -123,7 +126,8 @@ class _LandingPageState extends State<LandingPage>
                               size: 18,
                             )
                           ],
-                        )),
+                        ),
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
