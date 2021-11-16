@@ -1,8 +1,10 @@
 import 'package:shop/const/colors.dart';
+import 'package:shop/routes/upload_new_product.dart';
 // import 'package:shop/const/my_icons.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/ui/wishlist.dart';
 
 class BackLayerMenu extends StatelessWidget {
   @override
@@ -120,11 +122,11 @@ class BackLayerMenu extends StatelessWidget {
                 }, 'Cart', 1),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feeds.routeName);
+                  navigateTo(context, WishList.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feeds.routeName);
+                  navigateTo(context, UploadProductForm.routeName);
                 }, 'Upload a new product', 3),
               ],
             ),
