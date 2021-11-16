@@ -1,4 +1,5 @@
 import 'package:shop/auth/login.dart';
+import 'package:shop/auth/sign_up.dart';
 import 'package:shop/const/theme_data.dart';
 import 'package:shop/provider/cart_provider.dart';
 import 'package:shop/provider/favs_provider.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
               ProductDetails.routeName: (ctx) => ProductDetails(),
               CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
               LoginScreen.routeName: (ctx) => LoginScreen(),
+              SignUpScreen.routeName: (ctx) => SignUpScreen(),
             },
           );
         }));
