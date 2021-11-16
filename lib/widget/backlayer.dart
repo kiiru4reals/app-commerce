@@ -1,5 +1,6 @@
 import 'package:shop/const/colors.dart';
 import 'package:shop/routes/upload_new_product.dart';
+
 // import 'package:shop/const/my_icons.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
@@ -122,7 +123,7 @@ class BackLayerMenu extends StatelessWidget {
                 }, 'Cart', 1),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, WishList.routeName);
+                  navigateTo(context, Feeds.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {
@@ -142,15 +143,18 @@ class BackLayerMenu extends StatelessWidget {
     Icons.favorite_border_outlined,
     Icons.upload_sharp
   ];
+
   void navigateTo(BuildContext ctx, String routeName) {
     Navigator.of(ctx).pushNamed(
       routeName,
     );
   }
 
-  Widget content(BuildContext ctx,  Function fct , String text, int index) {
+  Widget content(BuildContext ctx, Function fct, String text, int index) {
     return InkWell(
-      // onTap: fct,
+      /*onTap: () {
+        fct;
+      },*/
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
