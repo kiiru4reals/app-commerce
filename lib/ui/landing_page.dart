@@ -1,8 +1,8 @@
 import 'package:shop/auth/login.dart';
+import 'package:shop/auth/sign_up.dart';
 import 'package:shop/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 
 class LandingPage extends StatefulWidget {
   @override
@@ -19,6 +19,7 @@ class _LandingPageState extends State<LandingPage>
     'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
     'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
   ];
+
   @override
   void initState() {
     super.initState();
@@ -26,16 +27,16 @@ class _LandingPageState extends State<LandingPage>
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 20));
     _animation =
-    CurvedAnimation(parent: _animationController, curve: Curves.linear)
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((animationStatus) {
-        if (animationStatus == AnimationStatus.completed) {
-          _animationController.reset();
-          _animationController.forward();
-        }
-      });
+        CurvedAnimation(parent: _animationController, curve: Curves.linear)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((animationStatus) {
+            if (animationStatus == AnimationStatus.completed) {
+              _animationController.reset();
+              _animationController.forward();
+            }
+          });
     _animationController.forward();
   }
 
@@ -49,178 +50,179 @@ class _LandingPageState extends State<LandingPage>
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-          CachedNetworkImage(
-            imageUrl: images[1],
-            // placeholder: (context, url) => Image.network(
-            //   'https://image.flaticon.com/icons/png/128/564/564619.png',
-            //   fit: BoxFit.contain,
-            // ),
-            // errorWidget: (context, url, error) => Icon(Icons.error),
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-            alignment: FractionalOffset(_animation!.value, 0),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 30),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Welcome',
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Text(
-                    'to shop!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                )
-              ],
+      CachedNetworkImage(
+        imageUrl: images[1],
+        // placeholder: (context, url) => Image.network(
+        //   'https://image.flaticon.com/icons/png/128/564/564619.png',
+        //   fit: BoxFit.contain,
+        // ),
+        // errorWidget: (context, url, error) => Icon(Icons.error),
+        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+        alignment: FractionalOffset(_animation!.value, 0),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 30),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Text(
+                'to shop!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side: BorderSide(color: ColorsConsts.backgroundColor),
-                              ),
-                            )),
-                        onPressed: () {
-                          Navigator.pushNamed(context, LoginScreen.routeName);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Login',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.login,
-                              size: 18,
-                            )
-                          ],
-                        ),
+              SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      side: BorderSide(color: ColorsConsts.backgroundColor),
                     ),
+                  )),
+                  onPressed: () {
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 17),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.login,
+                        size: 18,
+                      )
+                    ],
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
                             MaterialStateProperty.all(Colors.pink.shade400),
-                            shape:
+                        shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side:
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                            side:
                                 BorderSide(color: ColorsConsts.backgroundColor),
-                              ),
-                            )),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Sign up',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.person_add,
-                              size: 18,
-                            )
-                          ],
+                          ),
                         )),
-                  ),
-                  SizedBox(width: 10),
-                ],
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignUpScreen.routeName);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Sign up',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 17),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.person_add,
+                          size: 18,
+                        )
+                      ],
+                    )),
               ),
-              SizedBox(
-                height: 30,
+              SizedBox(width: 10),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Divider(
+                    color: Colors.white,
+                    thickness: 2,
+                  ),
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 2,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Or continue with',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 2,
-                      ),
-                    ),
-                  ),
-                ],
+              Text(
+                'Or continue with',
+                style: TextStyle(color: Colors.black),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  OutlineButton(
-                    onPressed: () {},
-                    shape: StadiumBorder(),
-                    highlightedBorderColor: Colors.red.shade200,
-                    borderSide: BorderSide(width: 2, color: Colors.red),
-                    child: Text('Google +'),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Divider(
+                    color: Colors.white,
+                    thickness: 2,
                   ),
-                  OutlineButton(
-                    onPressed: () {},
-                    shape: StadiumBorder(),
-                    highlightedBorderColor: Colors.deepPurple.shade200,
-                    borderSide: BorderSide(width: 2, color: Colors.deepPurple),
-                    child: Text('Sign in as a guest'),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 40,
+                ),
               ),
             ],
           ),
-        ]));
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              OutlineButton(
+                onPressed: () {},
+                shape: StadiumBorder(),
+                highlightedBorderColor: Colors.red.shade200,
+                borderSide: BorderSide(width: 2, color: Colors.red),
+                child: Text('Google +'),
+              ),
+              OutlineButton(
+                onPressed: () {},
+                shape: StadiumBorder(),
+                highlightedBorderColor: Colors.deepPurple.shade200,
+                borderSide: BorderSide(width: 2, color: Colors.deepPurple),
+                child: Text('Sign in as a guest'),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 40,
+          ),
+        ],
+      ),
+    ]));
   }
 }
