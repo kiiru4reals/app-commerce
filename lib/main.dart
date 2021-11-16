@@ -74,6 +74,7 @@ class _MyAppState extends State<MyApp> {
               CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
               LoginScreen.routeName: (ctx) => LoginScreen(),
               SignUpScreen.routeName: (ctx) => SignUpScreen(),
+              BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
             },
           );
         }));
