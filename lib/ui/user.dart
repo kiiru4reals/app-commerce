@@ -16,15 +16,16 @@ class _UserInfoState extends State<UserInfo> {
   // bool _value = false;
   late ScrollController _scrollController;
   var top = 0.0;
+
   @override
   void initState() {
-
     super.initState();
-    _scrollController =ScrollController();
-    _scrollController.addListener(() {setState(() {
-
-    });});
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      setState(() {});
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -39,76 +40,76 @@ class _UserInfoState extends State<UserInfo> {
                 elevation: 4,
                 expandedHeight: 200,
                 pinned: true,
-                flexibleSpace: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
-                      top = constraints.biggest.height;
-                      return Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorsConsts.starterColor,
-                                ColorsConsts.endColor,
-                              ],
-                              begin: const FractionalOffset(0.0, 0.0),
-                              end: const FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp),
-                        ),
-                        child: FlexibleSpaceBar(
-                          collapseMode: CollapseMode.parallax,
-                          centerTitle: true,
-                          title: Row(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AnimatedOpacity(
-                                duration: Duration(milliseconds: 300),
-                                opacity: top <= 110.0 ? 1.0 : 0,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 12,
-                                    ),
-                                    Container(
-                                      height: kToolbarHeight / 1.8,
-                                      width: kToolbarHeight / 1.8,
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            blurRadius: 1.0,
-                                          ),
-                                        ],
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                              'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 12,
-                                    ),
-                                    Text(
-                                      // 'top.toString()',
-                                      'Guest',
-                                      style: TextStyle(
-                                          fontSize: 20.0, color: Colors.white),
-                                    ),
-                                  ],
+                flexibleSpace: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  top = constraints.biggest.height;
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            ColorsConsts.starterColor,
+                            ColorsConsts.endColor,
+                          ],
+                          begin: const FractionalOffset(0.0, 0.0),
+                          end: const FractionalOffset(1.0, 0.0),
+                          stops: [0.0, 1.0],
+                          tileMode: TileMode.clamp),
+                    ),
+                    child: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.parallax,
+                      centerTitle: true,
+                      title: Row(
+                        //  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AnimatedOpacity(
+                            duration: Duration(milliseconds: 300),
+                            opacity: top <= 110.0 ? 1.0 : 0,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 12,
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  height: kToolbarHeight / 1.8,
+                                  width: kToolbarHeight / 1.8,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white,
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                          'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  // 'top.toString()',
+                                  'Guest',
+                                  style: TextStyle(
+                                      fontSize: 20.0, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                          background: Image(
-                            image: NetworkImage(
-                                'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      );
-                    }),
+                        ],
+                      ),
+                      background: Image(
+                        image: NetworkImage(
+                            'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                }),
               ),
               SliverToBoxAdapter(
                 child: Column(
@@ -122,31 +123,32 @@ class _UserInfoState extends State<UserInfo> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            splashColor: Theme.of(context).splashColor,
-            child: ListTile(
-              onTap: () => Navigator.of(context).pushNamed(WishList.routeName),
-              title: Text('Wishlist'),
-              trailing: Icon(Icons.chevron_right),
-              leading: Icon(Icons.favorite_border_outlined),
-            ),
-          ),
-        ),
                     Material(
                       color: Colors.transparent,
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () => Navigator.of(context).pushNamed(ShoppingCart.routeName),
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(WishList.routeName),
+                          title: Text('Wishlist'),
+                          trailing: Icon(Icons.chevron_right),
+                          leading: Icon(Icons.favorite_border_outlined),
+                        ),
+                      ),
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(ShoppingCart.routeName),
                           title: Text('Shopping cart'),
                           trailing: Icon(Icons.chevron_right),
                           leading: Icon(Icons.shopping_cart),
                         ),
                       ),
                     ),
-
 
                     Padding(
                         padding: const EdgeInsets.only(left: 8.0),
@@ -184,7 +186,19 @@ class _UserInfoState extends State<UserInfo> {
                       switchActiveColor: Colors.indigo,
                       title: Text('Dark theme'),
                     ),
-                    userListTile('Logout', '', 4, context),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.canPop(context)? Navigator.pop(context) :null;
+                          },
+                          title: Text('Logout'),
+                          leading: Icon(Icons.exit_to_app_rounded),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -195,7 +209,6 @@ class _UserInfoState extends State<UserInfo> {
       ),
     );
   }
-
 
   Widget _buildFab() {
     //starting fab position
@@ -222,17 +235,17 @@ class _UserInfoState extends State<UserInfo> {
       }
     }
 
-    return  Positioned(
+    return Positioned(
       top: top,
       right: 16.0,
-      child:  Transform(
-        transform:  Matrix4.identity()..scale(scale),
+      child: Transform(
+        transform: Matrix4.identity()..scale(scale),
         alignment: Alignment.center,
-        child:  FloatingActionButton(
+        child: FloatingActionButton(
           backgroundColor: ColorsConsts.starterColor,
           heroTag: "btn1",
-          onPressed: (){},
-          child:  Icon(Icons.camera_alt_outlined),
+          onPressed: () {},
+          child: Icon(Icons.camera_alt_outlined),
         ),
       ),
     );
