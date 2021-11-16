@@ -6,6 +6,7 @@ import 'package:shop/provider/favs_provider.dart';
 import 'package:shop/routes/product_details.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
 import 'package:shop/provider/products.dart';
+import 'package:shop/routes/upload_new_product.dart';
 import 'package:shop/ui/bottom_bar.dart';
 import 'package:shop/ui/landing_page.dart';
 import 'package:shop/ui/wishlist.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
               LoginScreen.routeName: (ctx) => LoginScreen(),
               SignUpScreen.routeName: (ctx) => SignUpScreen(),
               BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+              UploadProductForm.routeName: (ctx) => UploadProductForm()
             },
           );
         }));
