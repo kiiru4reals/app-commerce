@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:shop/auth/login.dart';
 import 'package:shop/auth/sign_up.dart';
 import 'package:shop/const/theme_data.dart';
@@ -17,7 +18,9 @@ import 'package:shop/routes/categories_feeds.dart';
 import 'package:shop/ui/cart.dart';
 import 'package:shop/ui/feeds.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -39,7 +42,6 @@ class _MyAppState extends State<MyApp> {
     getCurrentAppTheme();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
