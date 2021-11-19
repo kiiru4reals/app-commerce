@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shop/const/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/services/global_method.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -16,6 +18,9 @@ class _LoginScreenState extends State<LoginScreen> {
   String _emailAddress = '';
   String _password = '';
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  GlobalMethods _globalMethods = GlobalMethods();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -23,11 +28,27 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _submitForm() {
+  void _submitForm() async{
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
+      setState(() {
+        _isLoading = true;
+      });
       _formKey.currentState!.save();
+      try{
+        await _auth.signInWithEmailAndPassword(
+            email: _emailAddress.toLowerCase().trim(),
+            password: _password.trim()).then((value) => Navigator.canPop(context)? Navigator.pop(context) :null);
+      }catch(error){
+        // _globalMethods.authError(context, ${error});
+        print('An Error Occurred ${error}');
+      }
+      finally{
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -125,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: Icon(Icons.password),
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -149,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(width: 10),
-                        ElevatedButton(
+                        _isLoading ? CircularProgressIndicator() :ElevatedButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
