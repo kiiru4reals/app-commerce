@@ -33,14 +33,13 @@ class GlobalMethods {
                     fct();
                     Navigator.pop(context);
                   },
-                  child: Text('OK'))
+                  child: Text('ok'))
             ],
           );
         });
   }
 
-  Future<void> authError(
-       String subtitle, BuildContext context) async {
+  Future<void> authErrorHandle(String subtitle, BuildContext context) async {
     showDialog(
         context: context,
         builder: (BuildContext ctx) {
@@ -57,17 +56,18 @@ class GlobalMethods {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Error occurred'),
+                  child: Text('Error occured'),
                 ),
               ],
             ),
             content: Text(subtitle),
             actions: [
+
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('OK'))
+                  child: Text('Ok'))
             ],
           );
         });
