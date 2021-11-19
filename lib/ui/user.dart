@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shop/const/colors.dart';
 import 'package:shop/provider/dark_theme_provider.dart';
@@ -16,6 +17,7 @@ class _UserInfoState extends State<UserInfo> {
   // bool _value = false;
   late ScrollController _scrollController;
   var top = 0.0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -191,8 +193,48 @@ class _UserInfoState extends State<UserInfo> {
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () {
-                            Navigator.canPop(context)? Navigator.pop(context) :null;
+                          onTap: () async {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext ctx) {
+                                  return AlertDialog(
+                                    title: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 6.0),
+                                          child: Image.network(
+                                            'https://image.flaticon.com/icons/png/128/1828/1828304.png',
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('Sign out?'),
+                                        ),
+                                      ],
+                                    ),
+                                    content: Text('Are you really sure?'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () async {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Cancel')),
+
+                                      TextButton(
+                                          onPressed: () async {
+                                            Navigator.pop(context);
+                                            await _auth.signOut();
+                                          },
+                                          child: Text('Ok'))
+                                    ],
+                                  );
+                                });
+
+                            // Navigator.canPop(context)? Navigator.pop(context) :null;
+                           // await _auth.signOut();
+
                           },
                           title: Text('Logout'),
                           leading: Icon(Icons.exit_to_app_rounded),
