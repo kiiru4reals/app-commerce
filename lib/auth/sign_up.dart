@@ -1,12 +1,15 @@
- import 'dart:io';
+import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:shop/const/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:shop/services/global_method.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/SignUpScreen';
@@ -22,8 +25,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _emailAddress = '';
   String _password = '';
   String _fullName = '';
-  late int _phoneNumber;
+  int? _phoneNumber;
   File? _pickedImage;
+  String? url;
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -36,37 +40,68 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  void _submitForm() async{
+  void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    var date = DateTime.now().toString();
+    var dateparse = DateTime.parse(date);
+    var formattedDate = "${dateparse.day}-${dateparse.month}-${dateparse.year}";
     if (isValid) {
-      setState(() {
-        _isLoading = true;
-      });
       _formKey.currentState!.save();
-      try{
-       await _auth.createUserWithEmailAndPassword(email: _emailAddress.toLowerCase().trim(), password: _password.trim());
-      }catch(error){
-        // _globalMethods.authError(context, ${error});
-        print('An Error Occurred ${error}');
-      }
-      finally{
+      try {
+        if (_pickedImage == null) {
+          _globalMethods.authErrorHandle('Please pick an image', context);
+        } else {
+          setState(() {
+            _isLoading = true;
+          });
+          final ref = FirebaseStorage.instance
+              .ref()
+              .child('usersImages')
+              .child(_fullName + '.jpg');
+          await ref.putFile(_pickedImage!);
+          url = await ref.getDownloadURL();
+          await _auth.createUserWithEmailAndPassword(
+              email: _emailAddress.toLowerCase().trim(),
+              password: _password.trim());
+          final User? user = _auth.currentUser;
+          final _uid = user!.uid;
+          user.updateProfile(photoURL: url, displayName: _fullName);
+          user.reload();
+          await FirebaseFirestore.instance.collection('users').doc(_uid).set({
+            'id': _uid,
+            'name': _fullName,
+            'email': _emailAddress,
+            'phoneNumber': _phoneNumber,
+            'imageUrl': url,
+            'joinedAt': formattedDate,
+            'createdAt': Timestamp.now(),
+          });
+          Navigator.canPop(context) ? Navigator.pop(context) : null;
+        }
+      } catch (error) {
+        // _globalMethods.authErrorHandle(error.message, context);
+        print('error occured ${error}');
+      } finally {
         setState(() {
           _isLoading = false;
         });
       }
     }
   }
-  void _pickImageCamera() async{
+
+  void _pickImageCamera() async {
     final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: ImageSource.camera);
+    final pickedImage =
+    await picker.getImage(source: ImageSource.camera, imageQuality: 10);
     final pickedImageFile = File(pickedImage!.path);
     setState(() {
       _pickedImage = pickedImageFile;
     });
     Navigator.pop(context);
   }
-  void _pickImageGallery() async{
+
+  void _pickImageGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.getImage(source: ImageSource.gallery);
     final pickedImageFile = File(pickedImage!.path);
@@ -75,7 +110,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
     Navigator.pop(context);
   }
-  void _remove(){
+
+  void _remove() {
     setState(() {
       _pickedImage = null;
     });
@@ -120,108 +156,124 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                      margin:
+                      EdgeInsets.symmetric(vertical: 30, horizontal: 30),
                       child: CircleAvatar(
                         radius: 71,
                         backgroundColor: ColorsConsts.gradiendLEnd,
                         child: CircleAvatar(
-                          radius: 70,
-                          backgroundColor: ColorsConsts.gradiendLEnd,
-                          backgroundImage: _pickedImage == null ?null :FileImage(_pickedImage!),
+                          radius: 65,
+                          backgroundColor: ColorsConsts.gradiendFEnd,
+                          backgroundImage: _pickedImage == null
+                              ? null
+                              : FileImage(_pickedImage!),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 120,
-                        left: 120,
-
+                        top: 120,
+                        left: 110,
                         child: RawMaterialButton(
                           elevation: 10,
                           fillColor: ColorsConsts.gradiendLEnd,
-                          child: Icon(
-                            Icons.add_a_photo
-                          ),
+                          child: Icon(Icons.add_a_photo),
                           padding: EdgeInsets.all(15.0),
                           shape: CircleBorder(),
                           onPressed: () {
-                            showDialog(context: context, builder: (BuildContext context){
-                              return AlertDialog(
-                                title: Text('Choose Option',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorsConsts.gradiendLStart,
-                                ),),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: [
-                                      InkWell(
-                                        onTap: _pickImageCamera,
-                                        splashColor: Colors.purpleAccent,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Icon(Icons.camera,
-                                                color: Colors.purpleAccent),
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Choose option',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorsConsts.gradiendLStart),
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: [
+                                          InkWell(
+                                            onTap: _pickImageCamera,
+                                            splashColor: Colors.purpleAccent,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.camera,
+                                                    color: Colors.purpleAccent,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Camera',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      color:
+                                                      ColorsConsts.title),
+                                                )
+                                              ],
                                             ),
-                                            Text('Camera',style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorsConsts.title,
-                                              fontWeight: FontWeight.w500,
-                                            ),),
-
-                                          ],
-                                        ),
-                                        ),
-                                      InkWell(
-                                        onTap: _pickImageGallery,
-                                        splashColor: Colors.purpleAccent,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Icon(Icons.image,
-                                                  color: Colors.purpleAccent),
+                                          ),
+                                          InkWell(
+                                            onTap: _pickImageGallery,
+                                            splashColor: Colors.purpleAccent,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.image,
+                                                    color: Colors.purpleAccent,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Gallery',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      color:
+                                                      ColorsConsts.title),
+                                                )
+                                              ],
                                             ),
-                                            Text('Gallery',style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorsConsts.title,
-                                              fontWeight: FontWeight.w500,
-                                            ),),
-
-                                          ],
-                                        ),
+                                          ),
+                                          InkWell(
+                                            onTap: _remove,
+                                            splashColor: Colors.purpleAccent,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.remove_circle,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Remove',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      color: Colors.red),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      InkWell(
-                                        onTap: _remove,
-                                        splashColor: Colors.red,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Icon(Icons.remove_circle,
-                                                  color: Colors.red),
-                                            ),
-                                            Text('Remove',style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorsConsts.title,
-                                              fontWeight: FontWeight.w500,
-                                            ),),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                              );
-
-                            });
+                                    ),
+                                  );
+                                });
                           },
-
-                    ))
-
+                        ))
                   ],
                 ),
                 Form(
@@ -319,7 +371,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           padding: const EdgeInsets.all(12.0),
                           child: TextFormField(
                             key: ValueKey('phone number'),
-
                             focusNode: _phoneNumberFocusNode,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -327,6 +378,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                               return null;
                             },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             textInputAction: TextInputAction.next,
                             onEditingComplete: _submitForm,
                             keyboardType: TextInputType.phone,
@@ -345,19 +399,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             SizedBox(width: 10),
-                            _isLoading ? CircularProgressIndicator() :ElevatedButton(
+                            _isLoading
+                                ? CircularProgressIndicator()
+                                : ElevatedButton(
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30.0),
+                                        borderRadius:
+                                        BorderRadius.circular(30.0),
                                         side: BorderSide(
-                                            color: ColorsConsts.backgroundColor),
+                                            color:
+                                            ColorsConsts.backgroundColor),
                                       ),
                                     )),
                                 onPressed: _submitForm,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       'Sign up',

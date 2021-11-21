@@ -54,7 +54,6 @@ class SearchByHeader extends SliverPersistentHeaderDelegate {
                   stops: [0.0, 1.0],
                   tileMode: TileMode.clamp),
             ),
-
           ),
           Positioned(
             top: 30,
@@ -73,8 +72,7 @@ class SearchByHeader extends SliverPersistentHeaderDelegate {
                     child: IconButton(
                       icon: Icon(Icons.favorite, color: ColorsConsts.favColor),
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(WishList.routeName);
+                        Navigator.of(context).pushNamed(WishList.routeName);
                       },
                     ),
                   ),

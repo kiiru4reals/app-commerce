@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shop/const/colors.dart';
@@ -18,7 +19,12 @@ class _UserInfoState extends State<UserInfo> {
   late ScrollController _scrollController;
   var top = 0.0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  String? _uid;
+  String? _name;
+  String? _userImageUrl;
+  String? _email;
+  String? _joinedAt;
+  int? _phoneNumber;
   @override
   void initState() {
     super.initState();
@@ -26,6 +32,22 @@ class _UserInfoState extends State<UserInfo> {
     _scrollController.addListener(() {
       setState(() {});
     });
+    getData();
+  }
+  Future<void> getData() async {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    // print('user.email ${user.email}');
+    final DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      _name = userDoc.get('name');
+      // print("name $_name");
+      _email = user.email;
+      _joinedAt = userDoc.get('joinedAt');
+      _phoneNumber = userDoc.get('phoneNumber');
+      _userImageUrl = userDoc.get('imageUrl');
+    });
+
   }
 
   @override
@@ -86,7 +108,7 @@ class _UserInfoState extends State<UserInfo> {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                          'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                                          _userImageUrl?? 'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
                                     ),
                                   ),
                                 ),
@@ -95,7 +117,7 @@ class _UserInfoState extends State<UserInfo> {
                                 ),
                                 Text(
                                   // 'top.toString()',
-                                  'Guest',
+                                  _name== null? 'Guest' : _name!,
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.white),
                                 ),
@@ -106,7 +128,7 @@ class _UserInfoState extends State<UserInfo> {
                       ),
                       background: Image(
                         image: NetworkImage(
-                            'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                            _userImageUrl?? 'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -159,14 +181,14 @@ class _UserInfoState extends State<UserInfo> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Email', 'Email goes here', 0, context),
-                    userListTile('Phone', 'number', 1, context),
-                    userListTile('Shipping', 'address', 2, context),
-                    userListTile('Order', 'history', 3, context),
+                    userListTile('Email', _email??'', 0, context),
+                    userListTile('Phone', _phoneNumber.toString(), 1, context),
+                    userListTile('Shipping','Date' , 2, context),
+                    // userListTile('Order', 'history', 3, context),
                     // userListTile('Email', 'Email sub', 0, context),
                     // userListTile('Phone number', '4555', 0, context),
                     // userListTile('Shipping address', '', 0, context),
-                    // userListTile('joined date', 'date', 0, context),
+                    userListTile('joined date', _joinedAt!, 3, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: userTitle('User settings'),
