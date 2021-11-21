@@ -38,15 +38,20 @@ class _UserInfoState extends State<UserInfo> {
     User? user = _auth.currentUser;
     _uid = user!.uid;
     // print('user.email ${user.email}');
-    final DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    setState(() {
-      _name = userDoc.get('name');
-      // print("name $_name");
-      _email = user.email;
-      _joinedAt = userDoc.get('joinedAt');
-      _phoneNumber = userDoc.get('phoneNumber');
-      _userImageUrl = userDoc.get('imageUrl');
-    });
+    final DocumentSnapshot userDoc = (user.isAnonymous ?null :await FirebaseFirestore.instance.collection('users').doc(_uid).get()) as DocumentSnapshot<Object?>;
+    if (userDoc == null){
+      return;
+    }
+    else{
+      setState(() {
+        _name = userDoc.get('name');
+        // print("name $_name");
+        _email = user.email;
+        _joinedAt = userDoc.get('joinedAt');
+        _phoneNumber = userDoc.get('phoneNumber');
+        _userImageUrl = userDoc.get('imageUrl');
+      });
+    }
 
   }
 

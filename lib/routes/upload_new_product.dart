@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:shop/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,8 +23,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productQuantity = '';
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
-  late String _categoryValue;
-  late String _brandValue;
+  String? _categoryValue;
+  String? _brandValue;
 
   File? _pickedImage;
 
@@ -86,7 +87,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final pickedImageFile = pickedImage == null ? null : File(pickedImage.path);
 
     setState(() {
-      _pickedImage = pickedImageFile!;
+      _pickedImage = pickedImageFile;
     });
     // widget.imagePickFn(pickedImageFile);
   }
@@ -128,15 +129,14 @@ class _UploadProductFormState extends State<UploadProductForm> {
                       textAlign: TextAlign.center),
                 ),
                 GradientIcon(
-                  Icons.file_upload_outlined,
+                  Icons.upload,
                   20,
                   LinearGradient(
                     colors: <Color>[
                       Colors.green,
                       Colors.yellow,
                       Colors.deepOrange,
-                      Colors.orange,
-                      // Colors.yellow[800],
+                      Colors.orange
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -189,7 +189,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             Flexible(
                               flex: 1,
                               child: TextFormField(
-                                key: ValueKey('Price KES'),
+                                key: ValueKey('Price KES.'),
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -202,7 +202,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       RegExp(r'[0-9]')),
                                 ],
                                 decoration: InputDecoration(
-                                  labelText: 'Price \$',
+                                  labelText: 'Price KES.',
                                   //  prefixIcon: Icon(Icons.mail),
                                   // suffixIcon: Text(
                                   //   '\n \n \$',
@@ -376,7 +376,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ],
                               onChanged: (String? value) {
                                 setState(() {
-                                  _categoryValue = value!;
+                                  _categoryValue = value;
                                   _categoryController.text = value!;
                                   //_controller.text= _productCategory;
                                   print(_productCategory);
@@ -454,7 +454,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ],
                               onChanged: (String? value) {
                                 setState(() {
-                                  _brandValue = value!;
+                                  _brandValue = value;
                                   _brandController.text = value!;
                                   print(_productBrand);
                                 });
